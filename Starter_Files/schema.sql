@@ -33,5 +33,5 @@ CREATE TABLE transactions (
   trans_date timestamp without time zone NOT NULL,
   amount FLOAT,
   card VARCHAR(20) NOT NULL,
-  merchat_id INT NOT NULL
+  merchant_id INT NOT NULL
 );

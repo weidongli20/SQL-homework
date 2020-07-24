@@ -1,3 +1,13 @@
+SELECT * FROM transactions;
+SELECT * FROM card_holder;
+SELECT * FROM credit_card;
+
+SELECT *
+FROM transactions t
+JOIN credit_card c ON t.card = c.card
+JOIN card_holder a ON a.card_holder_id = c.card_holder_id
+;
+
 SELECT trans_date, card, COUNT(*)
 FROM transactions
 GROUP BY card, trans_date
@@ -115,3 +125,58 @@ ON s.card_holder_id = a.card_holder_id
 ORDER BY trans_count DESC
 ;
 
+-- visualization
+
+SELECT *
+FROM card_holder
+WHERE card_holder_id = 2 OR card_holder_id = 18
+;
+
+SELECT 
+  c.card_holder_id, 
+  c.card_holder_name,
+  COUNT(t.trans_date) "Total Transactions",
+  MIN(t.amount) "Minimum Amount"
+FROM card_holder c
+JOIN credit_card r ON c.card_holder_id = r.card_holder_id
+JOIN transactions t ON t.card = r.card
+WHERE (c.card_holder_id = 2 OR c.card_holder_id = 18)
+GROUP BY c.card_holder_id, c.card_holder_name
+;
+
+SELECT 
+  *
+FROM card_holder c
+JOIN credit_card r ON c.card_holder_id = r.card_holder_id
+JOIN transactions t ON t.card = r.card
+WHERE (c.card_holder_id = 2 OR c.card_holder_id = 18)
+ORDER BY c.card_holder_id
+;
+
+
+SELECT 
+  trans_date,
+  amount,
+  card
+FROM transactions
+WHERE (
+	EXTRACT(HOUR FROM trans_date) > 7 
+    AND EXTRACT(HOUR FROM trans_date) < 9)
+ORDER BY amount DESC
+LIMIT 100
+;
+
+SELECT 
+  trans_date,
+  amount,
+  card
+FROM transactions
+WHERE (
+	trans_date >= '2018-01-01'
+AND trans_date < '2018-07-01'
+);
+
+SELECT *
+FROM transactions
+WHERE transactions_id = 3494
+;
