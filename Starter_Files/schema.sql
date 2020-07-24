@@ -1,6 +1,8 @@
 -- Drop Views
-DROP VIEW IF EXISTS anomalous_payments;
+
 DROP VIEW IF EXISTS small_payments;
+DROP VIEW IF EXISTS small_payments_top5_merchants;
+DROP VIEW IF EXISTS top_100_trans_7_9;
 
 -- Drop table if exists
 DROP TABLE IF EXISTS card_holder;
